@@ -1,13 +1,13 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 :root {
-  --bg: #0d1a63;
-  --primary: #1a2ca3;
-  --accent: #2845d6;
-  --reward: #f68048;
-  --foreground: #ffffff;
+  /* Custom pastel palette */
+  --bg: #f0ffdf;
+  --reward: #a8df8e;
+  --accent: #ffd8df;
+  --primary: #ffaab8;
+  --foreground: #222831;
+  color-scheme: light;
 }
 
 @theme inline {
@@ -19,7 +19,118 @@
 }
 
 body {
-  background: var(--bg);
+  background-color: var(--bg);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+@layer components {
+  .page-container {
+    @apply mx-auto max-w-6xl px-4;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-full bg-primary px-6 py-2.5 text-sm font-medium text-white shadow-lg shadow-primary/40 transition hover:bg-primary/90 hover:shadow-primary/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center justify-center rounded-full border border-foreground/20 bg-bg/60 px-6 py-2.5 text-sm font-medium text-foreground/80 backdrop-blur transition hover:border-foreground/40 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg;
+  }
+
+  .btn-reward {
+    @apply inline-flex items-center justify-center rounded-full bg-reward px-6 py-2.5 text-sm font-semibold text-black shadow-lg shadow-reward/50 transition hover:bg-reward/90 hover:shadow-reward/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg;
+  }
+
+  .card-elevated {
+    @apply rounded-2xl border border-white/8 bg-bg/70 p-5 shadow-[0_18px_45px_rgba(0,0,0,0.55)] backdrop-blur transition-transform transition-shadow duration-200 hover:-translate-y-1.5 hover:border-accent/60 hover:shadow-[0_28px_70px_rgba(0,0,0,0.8)];
+  }
+
+  .input-waitlist {
+    @apply rounded-full border border-foreground/20 bg-bg/80 px-5 py-2.5 text-sm text-foreground placeholder:text-foreground/50 backdrop-blur transition focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30 focus:ring-offset-2 focus:ring-offset-bg disabled:opacity-60;
+  }
+}
+
+@media (min-width: 640px) {
+  .page-container {
+    padding-left: 1.5rem; /* sm:px-6 */
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .page-container {
+    padding-left: 2rem; /* lg:px-8 */
+    padding-right: 2rem;
+  }
+}
+
+/* Simple animation utilities for the landing page */
+
+@keyframes fade-up-soft {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-fade-up-soft {
+  opacity: 0;
+  animation: fade-up-soft 0.6s ease-out forwards;
+}
+
+.animate-fade-up-soft.delay-1 {
+  animation-delay: 0.08s;
+}
+
+.animate-fade-up-soft.delay-2 {
+  animation-delay: 0.16s;
+}
+
+.animate-fade-up-soft.delay-3 {
+  animation-delay: 0.24s;
+}
+
+@keyframes float-soft {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.animate-float-soft {
+  animation: float-soft 7s ease-in-out infinite;
+}
+
+@keyframes subtle-glow {
+  0% {
+    box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.35);
+  }
+  100% {
+    box-shadow: 0 0 0 18px rgba(99, 102, 241, 0);
+  }
+}
+
+.animate-subtle-glow {
+  animation: subtle-glow 1.8s ease-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-up-soft,
+  .animate-float-soft,
+  .animate-subtle-glow {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    box-shadow: none !important;
+  }
 }

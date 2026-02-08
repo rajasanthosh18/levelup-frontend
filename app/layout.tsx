@@ -13,8 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "LevelUp IRL",
-  description: "Gamified self-improvement web app",
+  title: "LevelUp IRL — Join the Waitlist",
+  description:
+    "Turn your real life into a game. Gamified habits, XP, streaks, and rewards. Join the waitlist for early access.",
 };
 
 export default function RootLayout({
@@ -29,7 +30,6 @@ export default function RootLayout({
           ${geistSans.variable}
           ${geistMono.variable}
           antialiased
-          text-white
           min-h-screen
         `}
       >
