@@ -172,7 +172,7 @@ export default function HomePage() {
             Want early access?{" "}
             <a
               href="#cta"
-              className="font-medium text-primary underline decoration-primary/40 underline-offset-2 hover:decoration-primary"
+              className="font-medium text-foreground underline decoration-primary/40 underline-offset-2 hover:decoration-primary"
             >
               Join the waitlist
             </a>

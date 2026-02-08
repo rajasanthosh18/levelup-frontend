@@ -3,9 +3,9 @@
 :root {
   /* Custom pastel palette */
   --bg: #f0ffdf;
+  --primary: #ffaab8;
   --reward: #a8df8e;
   --accent: #ffd8df;
-  --primary: #ffaab8;
   --foreground: #222831;
   color-scheme: light;
 }
