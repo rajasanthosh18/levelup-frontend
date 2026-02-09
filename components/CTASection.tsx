@@ -1,25 +1,34 @@
 "use client";
 
 import { useState } from "react";
+import { joinWaitlist } from "@/lib/api";
 
 export default function CTASection() {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">(
     "idle"
   );
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!email.trim()) return;
     setStatus("loading");
+    setErrorMessage(null);
     try {
-      // Replace with your waitlist API endpoint when ready
-      // await fetch("/api/waitlist", { method: "POST", body: JSON.stringify({ email }) });
-      await new Promise((r) => setTimeout(r, 800));
-      setStatus("success");
-      setEmail("");
-    } catch {
+      const result = await joinWaitlist(email);
+      if (result.ok) {
+        setStatus("success");
+        setEmail("");
+      } else {
+        setStatus("error");
+        setErrorMessage(result.message ?? "Something went wrong.");
+      }
+    } catch (err) {
       setStatus("error");
+      setErrorMessage(
+        err instanceof Error ? err.message : "Something went wrong. Try again or email us directly."
+      );
     }
   }
 
@@ -75,9 +84,9 @@ export default function CTASection() {
           </form>
         )}
 
-        {status === "error" && (
+        {status === "error" && errorMessage && (
           <p className="mt-3 text-xs text-red-600 dark:text-red-400">
-            Something went wrong. Try again or email us directly.
+            {errorMessage}
           </p>
         )}
 
